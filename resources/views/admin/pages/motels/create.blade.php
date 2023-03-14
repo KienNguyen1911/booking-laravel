@@ -14,8 +14,9 @@
                         <h6>Add new motel </h6>
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
-                        <form method="post" action="" style="padding: 10px 20px 0px;" enctype="multipart/form-data"
-                            id="myForm">
+                        <form method="post" action="{{ route('motels.store') }}" style="padding: 10px 20px 0px;"
+                            enctype="multipart/form-data" id="myForm">
+                            @csrf
                             <div class="row">
                                 <div class="col-lg-8 col-sm-12">
 
@@ -25,7 +26,7 @@
                                                 <label for="example-text-input" class="form-control-label">Name
                                                     Motel</label>
                                                 <input class="form-control" type="text" name="name"
-                                                    id="example-text-input" placeholder="ex: Air-Conditioner" required>
+                                                    id="example-text-input" placeholder="ex: Hotel Tinh Yeu" required>
                                             </div>
 
                                         </div>
@@ -51,8 +52,8 @@
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <label for="example-text-input" class="form-control-label">Area</label>
-                                                <input disabled class="form-control" type="text" name=""
-                                                    id="example-text-input" placeholder="ex: Air-Conditioner" required>
+                                                <input class="form-control" type="text" name="acreage"
+                                                    id="example-text-input" placeholder="ex: 30m2" required>
                                             </div>
 
                                         </div>
@@ -86,6 +87,13 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <label for="">Address</label>
+                                            <input type="text" class="form-control" name="address" id="address"
+                                                placeholder="ex: 123 Nguyen Van Linh" required>
+                                        </div>
+                                    </div>
 
                                     <div class="form-group">
                                         <label for="files" class="form-control-label">Motel Image</label>
@@ -113,7 +121,6 @@
                                     @endforeach
                                 </div>
                             </div>
-
 
                             <button type="submit" class="btn btn-primary" style="width: 100%;">Submit</button>
                         </form>
@@ -238,52 +245,4 @@
             });
         });
     </script>
-
-    {{-- <script>
-        $(document).ready(function() {
-            $('#province').on('change', function() {
-                var province_id = this.value;
-                console.log(province_id);
-                $("#district").html('');
-                $.ajax({
-                    type: "POST",
-                    url: "{{ route('district') }}",
-                    data: {
-                        province_id: province_id,
-                        _token: '{{ csrf_token() }}'
-                    },
-                    dataType: 'json',
-                    success: function(result) {
-                        $('#district').html('<option value="">Select State</option>');
-                        $.each(result.states, function(key, value) {
-                            $("#district").append('<option value="' + value.id +
-                                '">' + value.name + '</option>');
-                        });
-                        $('#ward').html(
-                            '<option value="">Select State First</option>');
-                    }
-                });
-            });
-            $('#district').on('change', function() {
-                var district_id = this.value;
-                $("#ward").html('');
-                $.ajax({
-                    url: "{{ route('ward') }}",
-                    type: "POST",
-                    data: {
-                        district_id: district_id,
-                        _token: '{{ csrf_token() }}'
-                    },
-                    dataType: 'json',
-                    success: function(result) {
-                        $('#ward').html('<option value="">Select City</option>');
-                        $.each(result.cities, function(key, value) {
-                            $("#ward").append('<option value="' + value.id +
-                                '">' + value.name + '</option>');
-                        });
-                    }
-                });
-            });
-        });
-    </script> --}}
 @endsection

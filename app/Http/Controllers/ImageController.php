@@ -5,9 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\Image;
 use App\Http\Requests\StoreImageRequest;
 use App\Http\Requests\UpdateImageRequest;
+use App\Services\ImageService;
 
 class ImageController extends Controller
 {
+    protected $imageService;
+
+    public function __construct(ImageService $imageService)
+    {
+        $this->imageService = $imageService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -26,6 +34,7 @@ class ImageController extends Controller
     public function create()
     {
         //
+
     }
 
     /**
@@ -34,9 +43,10 @@ class ImageController extends Controller
      * @param  \App\Http\Requests\StoreImageRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreImageRequest $request)
+    public function store(StoreImageRequest $request, $id)
     {
         //
+        $this->imageService->upload($request, $id);
     }
 
     /**

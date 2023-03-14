@@ -13,7 +13,7 @@ class StoreMotelRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,6 +25,16 @@ class StoreMotelRequest extends FormRequest
     {
         return [
             //
+            // 'name' => 'required| min: 5 | max: 255 | string',
+            // 'address' => 'required | min: 5 | max: 255 | string',
+            // 'province_id' => 'required | numeric',
+            // 'district_id' => 'required | numeric',
+            // 'ward_id' => 'required | numeric',
+            // 'price' => 'required | numeric',
+            // 'acreage' => 'required | numeric',
+            // 'description' => 'required ',
+            // 'attr' => 'required | array',
+            // 'attr.*' => 'required | numeric',
         ];
     }
 }

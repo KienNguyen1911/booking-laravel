@@ -9,18 +9,22 @@ use Illuminate\Contracts\View\View;
 use App\Services\AttrService;
 use App\Services\MotelsService;
 use App\Services\AddressService;
+use App\Services\ImageService;
+use Illuminate\Http\Request;
 
 class MotelController extends Controller
 {
     protected $motelsService;
     protected $attrService;
     protected $addressService;
+    protected $imageService;
 
-    public function __construct(MotelsService $motelsService, AttrService $attrService, AddressService $addressService)
+    public function __construct(MotelsService $motelsService, AttrService $attrService, AddressService $addressService, ImageService $imageService)
     {
         $this->motelsService = $motelsService;
         $this->attrService = $attrService;
         $this->addressService = $addressService;
+        $this->imageService = $imageService;
     }
 
     /**
@@ -59,9 +63,13 @@ class MotelController extends Controller
      * @param  \App\Http\Requests\StoreMotelRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreMotelRequest $request)
+    public function store(Request $request)
     {
         //
+        // dd($request->all());
+        $motel = $this->motelsService->create($request);
+        $this->imageService->upload($request, $motel->id);
+        return redirect()->route('motels.index');
     }
 
     /**

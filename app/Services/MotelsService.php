@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Motel;
+use Illuminate\Support\Facades\Auth;
 
 class MotelsService
 {
@@ -17,11 +18,16 @@ class MotelsService
     {
         $motel = new Motel();
         $motel->name = $request->name;
-        $motel->address = $request->address;
-        $motel->phone = $request->phone;
         $motel->price = $request->price;
+        $motel->status = $request->status;
+        $motel->acreage = $request->acreage;
+        $motel->province_id = $request->province;
+        $motel->district_id = $request->district;
+        $motel->ward_id = $request->ward;
+        $motel->address = $request->address;
         $motel->description = $request->description;
-        $motel->user_id = $request->user_id;
+        $motel->owner_id = Auth::user()->id;
+        $motel->attr = implode(',', $request->attribute);
         $motel->save();
         return $motel;
     }

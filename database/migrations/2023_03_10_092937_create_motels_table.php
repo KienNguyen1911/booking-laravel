@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->integer('price');
+            $table->string('status');
             $table->integer('acreage');
             $table->text('description');
             $table->foreignId('owner_id')->constrained('users');
