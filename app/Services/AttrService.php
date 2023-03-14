@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Models\Attr;
-use App\Services\BaseService;
 
 class AttrService
 {
