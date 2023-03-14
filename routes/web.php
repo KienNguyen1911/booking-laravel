@@ -1,9 +1,12 @@
 <?php
 
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AttrController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\MotelController;
 use App\Http\Controllers\UserController;
+use Illuminate\Routing\RouteRegistrar;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,9 +39,14 @@ Route::prefix('admin')->group(function () {
     Route::get('/profile', [AdminController::class, 'profile'])->name('profile');
 
     Route::resource('attributes', AttrController::class);
+    Route::resource('motels', MotelController::class);
 });
 
 Route::view('/services', 'client.pages.services')->name('services');
 Route::view('/about', 'client.pages.about')->name('about');
 Route::view('/contact', 'client.pages.contact')->name('contact');
 Route::view('/elements', 'client.pages.elements')->name('elements');
+
+Route::get('/province', [AddressController::class, 'getProvince'])->name('province');
+Route::post('/district', [AddressController::class, 'getDistrict'])->name('district');
+Route::post('/ward', [AddressController::class, 'getWard'])->name('ward');

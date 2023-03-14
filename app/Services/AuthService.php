@@ -43,7 +43,7 @@ class AuthService
 
     public function logout()
     {
-        unset($_SESSION['user']);
+        Auth::logout();
     }
 
     public function user()

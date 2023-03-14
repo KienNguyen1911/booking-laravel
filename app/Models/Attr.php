@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Attr extends Model
 {
     use HasFactory;
+
+    public function motels()
+    {
+        return $this->belongsToMany(Motel::class);
+    }
+
+    
 }

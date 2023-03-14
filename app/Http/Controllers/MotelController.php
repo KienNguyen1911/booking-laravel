@@ -5,17 +5,36 @@ namespace App\Http\Controllers;
 use App\Models\Motel;
 use App\Http\Requests\StoreMotelRequest;
 use App\Http\Requests\UpdateMotelRequest;
+use Illuminate\Contracts\View\View;
+use App\Services\AttrService;
+use App\Services\MotelsService;
+use App\Services\AddressService;
 
 class MotelController extends Controller
 {
+    protected $motelsService;
+    protected $attrService;
+    protected $addressService;
+
+    public function __construct(MotelsService $motelsService, AttrService $attrService, AddressService $addressService)
+    {
+        $this->motelsService = $motelsService;
+        $this->attrService = $attrService;
+        $this->addressService = $addressService;
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): View
     {
         //
+        $motels = $this->motelsService->getAll();
+        return view('admin.pages.motels.motelList', [
+            'motels' => $motels
+        ]);
     }
 
     /**
@@ -23,9 +42,15 @@ class MotelController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(): View
     {
         //
+        $provinces = $this->addressService->getProvince();
+        $attrs = $this->attrService->getAll();
+        return view('admin.pages.motels.create', [
+            'attrs' => $attrs,
+            'provinces' => $provinces
+        ]);
     }
 
     /**

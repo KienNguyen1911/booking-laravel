@@ -17,6 +17,11 @@
 
         @yield('attributes.index')
         @yield('attributes.edit')
+
+        @yield('motels.index')
+        @yield('motels.create')
+
+        
     </main>
     @include('admin.layout.ui-configurator')
 

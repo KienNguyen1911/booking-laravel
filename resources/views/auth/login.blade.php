@@ -1,6 +1,7 @@
 @extends('auth.form')
 
 @section('login')
+    {{-- {{ dd($error) }} --}}
     <main class="main-content  mt-0">
         <section>
             <div class="page-header min-vh-75">
@@ -39,6 +40,11 @@
                                             <button type="submit" class="btn bg-gradient-info w-100 mt-4 mb-0">
                                                 Signin
                                             </button>
+                                            @if (Session::has('errors'))
+                                                <div class="alert alert-danger mt-2 text-white">
+                                                    It Ngao Da Thoi
+                                                </div>
+                                            @endif
                                         </div>
                                     </form>
                                     {{-- END FORM LOGIN --}}

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Validator;
 
 class LoginRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class LoginRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -39,5 +40,14 @@ class LoginRequest extends FormRequest
             'password.min' => 'Password must be at least 6 characters',
             'password.max' => 'Password must be at most 50 characters',
         ];
+    }
+
+    public function withValidator(Validator $validator)
+    {
+        $validator->after(function (Validator $validator) {
+            if ($validator->errors()->isNotEmpty()) {
+                $validator->errors()->add('field', 'Email or Password is incorrect!');
+            }
+        });
     }
 }

@@ -68,7 +68,6 @@ class StoreUserRequest extends FormRequest
         $validator->after(function (Validator $validator) {
             if ($validator->errors()->isNotEmpty()) {
                 $validator->errors()->add('field', 'Something is wrong with this field!');
-                // dd($validator);
             }
         });
     }
