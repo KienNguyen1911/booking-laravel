@@ -39,8 +39,9 @@ class MotelController extends Controller
     {
         //
         try {
-            $provinces = $this->addressService->getProvince();
             $motels = $this->motelsService->getAll();
+            
+            $provinces = $this->addressService->getProvince();
             $attrs = $this->attrService->getAll();
             return view('admin.pages.motels.motelList', [
                 'motels' => $motels,

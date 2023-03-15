@@ -67,7 +67,7 @@ class MotelsService
 
     public function getAll()
     {
-        return Motel::all();
+        return Motel::where('owner_id', Auth::user()->id)->paginate(5);
     }
 
     public function getById($id)

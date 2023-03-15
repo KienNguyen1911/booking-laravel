@@ -32,16 +32,18 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
 
-Route::prefix('admin')->group(function () {
-    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
-    Route::get('/tables', [AdminController::class, 'tables'])->name('tables');
-    Route::get('/billing', [AdminController::class, 'billing'])->name('billing');
-    Route::get('/profile', [AdminController::class, 'profile'])->name('profile');
+Route::middleware('auth.admin')->group(function () {
+    Route::prefix('/admin')->group(function () {
+        Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+        Route::get('/tables', [AdminController::class, 'tables'])->name('tables');
+        Route::get('/billing', [AdminController::class, 'billing'])->name('billing');
+        Route::get('/profile', [AdminController::class, 'profile'])->name('profile');
 
-    Route::resource('attributes', AttrController::class);
-    Route::resource('motels', MotelController::class);
-    Route::post('/search', [MotelController::class, 'search'])->name('motels.search');
-})->middleware('auth');
+        Route::resource('attributes', AttrController::class);
+        Route::resource('motels', MotelController::class);
+        Route::post('/search', [MotelController::class, 'search'])->name('motels.search');
+    });
+});
 
 Route::view('/services', 'client.pages.services')->name('services');
 Route::view('/about', 'client.pages.about')->name('about');
