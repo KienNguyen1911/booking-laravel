@@ -116,6 +116,7 @@
                                         <input class="form-control upload__inputfile" type="file" name="images[]"
                                             multiple id="files" placeholder="ex: Air-Conditioner" required>
                                         <div class="upload-img"></div>
+                                        <x-input-error :messages="$errors->get('images')" />
                                     </div>
 
                                     <div class="form-group">

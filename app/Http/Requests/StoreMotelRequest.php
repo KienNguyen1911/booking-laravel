@@ -34,7 +34,7 @@ class StoreMotelRequest extends FormRequest
             'district_id' => 'required ',
             'ward_id' => 'required ',
             'address' => 'required | min:10 | max:100 | string',
-            'description' => 'required | min:10 | max:100 | string',
+            'description' => 'required | min:10 | max:1000 | string',
             'attribute' => 'required',
         ];
     }

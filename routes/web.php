@@ -40,6 +40,7 @@ Route::prefix('admin')->group(function () {
 
     Route::resource('attributes', AttrController::class);
     Route::resource('motels', MotelController::class);
+    Route::post('/search', [MotelController::class, 'search'])->name('motels.search');
 })->middleware('auth');
 
 Route::view('/services', 'client.pages.services')->name('services');

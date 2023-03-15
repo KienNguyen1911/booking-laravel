@@ -68,7 +68,15 @@
                                         @endforeach
                                     </div>
                                 </div>
-                                <a class="btn btn-info" href="{{ route('motels.edit', [$motel->id]) }}">Edit this motel</a>
+                                <div class="d-flex gap-5">
+                                    <a class="btn btn-info" href="{{ route('motels.edit', [$motel->id]) }}">Edit this
+                                        motel</a>
+                                    <form action="{{ route('motels.destroy', [$motel->id]) }}" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">Delete this motel</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>

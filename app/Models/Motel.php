@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Motel extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $fillable = [
         'name',
@@ -18,6 +20,48 @@ class Motel extends Model
         'user_id',
     ];
 
+    // Local Scope
+    public function scopeName($query, $name)
+    {
+        return $query->where('name', 'like', '%' . $name . '%');
+    }
+
+    public function scopePrice($query, $price)
+    {
+        // orderBy('price', 'asc') => orderBy('price', 'desc')
+        if ($price == 'asc') {
+            return $query->orderBy('price');
+        } else {
+            return $query->orderByDesc('price');
+        }
+    }
+
+    public function scopeProvince($query, $province)
+    {
+        return $query->where('province_id', $province);
+    }
+
+    public function scopeDistrict($query, $district)
+    {
+        return $query->where('district_id', $district);
+    }
+
+    public function scopeWard($query, $ward)
+    {
+        return $query->where('ward_id', $ward);
+    }
+
+    public function scopeAttr($query, $attr)
+    {
+        return $query->where('attr', 'like', '%' . $attr . '%');
+    }
+
+    public function scopeAcreage($query, $acreage)
+    {
+        return $query->where('acreage', $acreage);
+    }
+
+    // Relationship
     public function user()
     {
         return $this->belongsTo(User::class);

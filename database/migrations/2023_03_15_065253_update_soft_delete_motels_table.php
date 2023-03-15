@@ -13,11 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('images', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('motel_id')->constrained('motels')->onDelete('cascade');
-            $table->string('name');
-            $table->timestamps();
+        //
+        Schema::table('motels', function (Blueprint $table) {
+            $table->softDeletes();
         });
     }
 
@@ -28,6 +26,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('images');
+        //
+        Schema::table('motels', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 };

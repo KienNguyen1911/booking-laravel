@@ -39,9 +39,13 @@ class MotelController extends Controller
     {
         //
         try {
+            $provinces = $this->addressService->getProvince();
             $motels = $this->motelsService->getAll();
+            $attrs = $this->attrService->getAll();
             return view('admin.pages.motels.motelList', [
                 'motels' => $motels,
+                'attrs' => $attrs,
+                'provinces' => $provinces
             ]);
         } catch (\Throwable $th) {
             throw $th;
@@ -138,6 +142,21 @@ class MotelController extends Controller
     public function destroy(Motel $motel)
     {
         //
+        $this->motelsService->delete($motel->id);
+        return redirect()->route('motels.index');
+    }
 
+    public function search(Request $request)
+    {
+        // dd($request->all());
+        $motels = $this->motelsService->search($request);
+        // dd($motels);
+        $attrs = $this->attrService->getAll();
+        $provinces = $this->addressService->getProvince();
+        return view('admin.pages.motels.motelList', [
+            'motels' => $motels,
+            'attrs' => $attrs,
+            'provinces' => $provinces
+        ]);
     }
 }
