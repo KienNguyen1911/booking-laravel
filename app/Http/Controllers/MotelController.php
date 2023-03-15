@@ -38,10 +38,14 @@ class MotelController extends Controller
     public function index(): View
     {
         //
-        $motels = $this->motelsService->getAll();
-        return view('admin.pages.motels.motelList', [
-            'motels' => $motels,
-        ]);
+        try {
+            $motels = $this->motelsService->getAll();
+            return view('admin.pages.motels.motelList', [
+                'motels' => $motels,
+            ]);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 
     /**
@@ -96,9 +100,17 @@ class MotelController extends Controller
      * @param  \App\Models\Motel  $motel
      * @return \Illuminate\Http\Response
      */
-    public function edit(Motel $motel)
+    public function edit(Motel $motel): View
     {
         //
+        $motel = $this->motelsService->getById($motel->id);
+        $provinces = $this->addressService->getProvince();
+        $attrs = $this->attrService->getAll();
+        return view('admin.pages.motels.edit', [
+            'motel' => $motel,
+            'provinces' => $provinces,
+            'attrs' => $attrs,
+        ]);
     }
 
     /**
@@ -108,9 +120,13 @@ class MotelController extends Controller
      * @param  \App\Models\Motel  $motel
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateMotelRequest $request, Motel $motel)
+    public function update(UpdateMotelRequest $request, $id)
     {
         //
+        $this->motelsService->update($request, $id);
+        $this->motelsService->sync($request, $id);
+        $this->imageService->upload($request, $id);
+        return redirect()->route('motels.show', $id);
     }
 
     /**
@@ -122,5 +138,6 @@ class MotelController extends Controller
     public function destroy(Motel $motel)
     {
         //
+
     }
 }

@@ -21,7 +21,8 @@
                                         <div class="col-12 mb-1">
                                             <div class="lightbox">
                                                 <img src="{{ asset('motel_images/' . $motel->images[0]->name) }}"
-                                                    alt="Gallery image 1" class="ecommerce-gallery-main-img active w-100"
+                                                    alt="Gallery image 1"
+                                                    class="ecommerce-gallery-main-img active w-100 border-radius-lg shadow-sm"
                                                     style="height: 500px;" />
                                             </div>
                                         </div>
@@ -29,7 +30,9 @@
                                             <div class="col-3 mt-1">
                                                 <img src="{{ asset('motel_images/' . $image->name) }}"
                                                     data-mdb-img="{{ asset('motel_images/' . $image->name) }}"
-                                                    alt="Gallery image 1" class="active w-100" style="height:100%" />
+                                                    alt="Gallery image 1"
+                                                    class="img active w-100 border-radius-lg shadow-sm"
+                                                    style="height:100%" />
                                             </div>
                                         @endforeach
                                     </div>
@@ -45,23 +48,27 @@
                                     <h6>Address: {{ $motel->province->name }}, {{ $motel->district->name }},
                                         {{ $motel->ward->name }}</h6>
                                     <p>{{ $motel->address }}</p>
-                                    <label for="description">
+                                    <h6 for="description">
                                         Description:
-                                    </label>
+                                    </h6>
                                     <p id="description">{{ $motel->description }}</p>
                                     {{-- <br> --}}
-                                    <label for="description">
+                                    <h6 for="description">
                                         Attributes:
-                                    </label>
+                                    </h6>
                                     <div class="row">
                                         {{-- {{ dd($motel->attrs) }} --}}
                                         @foreach ($motel->attrs as $attribute)
                                             <div class="col-6">
-                                                <p>{{ $attribute->name }}</p>
+                                                <p>
+                                                    <i class="fa-regular fa-circle-check"></i>
+                                                    {{ $attribute->name }}
+                                                </p>
                                             </div>
                                         @endforeach
                                     </div>
                                 </div>
+                                <a class="btn btn-info" href="{{ route('motels.edit', [$motel->id]) }}">Edit this motel</a>
                             </div>
                         </div>
                     </div>

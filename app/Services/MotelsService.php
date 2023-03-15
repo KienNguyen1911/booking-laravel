@@ -41,11 +41,15 @@ class MotelsService
     {
         $motel = Motel::find($id);
         $motel->name = $request->name;
-        $motel->address = $request->address;
-        $motel->phone = $request->phone;
         $motel->price = $request->price;
+        $motel->status = $request->status;
+        $motel->acreage = $request->acreage;
+        $motel->province_id = $request->province_id;
+        $motel->district_id = $request->district_id;
+        $motel->ward_id = $request->ward_id;
+        $motel->address = $request->address;
         $motel->description = $request->description;
-        $motel->user_id = $request->user_id;
+        $motel->owner_id = Auth::user()->id;
         $motel->save();
         return $motel;
     }
@@ -70,10 +74,14 @@ class MotelsService
     public function attach($request, $id)
     {
         $motel = Motel::find($id);
-        // dd($request->attribute);
         foreach ($request->attribute as $key => $value) {
             $motel->attrs()->attach($value);
         }
-        // return $motel;
+    }
+
+    public function sync($request, $id)
+    {
+        $motel = Motel::find($id);
+        $motel->attrs()->sync($request->attribute);
     }
 }

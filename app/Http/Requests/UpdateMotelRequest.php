@@ -13,7 +13,7 @@ class UpdateMotelRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,6 +25,15 @@ class UpdateMotelRequest extends FormRequest
     {
         return [
             //
+            'name' => 'required',
+            'price' => 'required',
+            'status' => 'required',
+            'acreage' => 'required',
+            'province_id' => 'required',
+            'district_id' => 'required',
+            'ward_id' => 'required',
+            'address' => 'required',
+            'description' => 'required',
         ];
     }
 }

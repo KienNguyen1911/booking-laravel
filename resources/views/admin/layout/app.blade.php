@@ -21,6 +21,7 @@
         @yield('motels.index')
         @yield('motels.create')
         @yield('motels.show')
+        @yield('motels.edit')
 
 
     </main>

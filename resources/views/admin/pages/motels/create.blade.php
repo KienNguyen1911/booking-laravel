@@ -183,7 +183,6 @@
             </div>
         </div>
     </div>
-    </main>
     <script>
         // preview multiple upload image
         const uploadInput = document.querySelector('.upload__inputfile');
