@@ -16,18 +16,23 @@ class MotelsService
 
     public function create($request)
     {
+        try {
+            //code...
+
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
         $motel = new Motel();
         $motel->name = $request->name;
         $motel->price = $request->price;
         $motel->status = $request->status;
         $motel->acreage = $request->acreage;
-        $motel->province_id = $request->province;
-        $motel->district_id = $request->district;
-        $motel->ward_id = $request->ward;
+        $motel->province_id = $request->province_id;
+        $motel->district_id = $request->district_id;
+        $motel->ward_id = $request->ward_id;
         $motel->address = $request->address;
         $motel->description = $request->description;
         $motel->owner_id = Auth::user()->id;
-        $motel->attr = implode(',', $request->attribute);
         $motel->save();
         return $motel;
     }
@@ -60,5 +65,15 @@ class MotelsService
     public function getById($id)
     {
         return Motel::find($id);
+    }
+
+    public function attach($request, $id)
+    {
+        $motel = Motel::find($id);
+        // dd($request->attribute);
+        foreach ($request->attribute as $key => $value) {
+            $motel->attrs()->attach($value);
+        }
+        // return $motel;
     }
 }

@@ -39,4 +39,12 @@ class AttrService
     {
         return Attr::find($id);
     }
+
+    public function attach($request, $id)
+    {
+        $attr = Attr::find($id);
+        $attr->motels()->attach($request->motel_id);
+        dd($attr);
+        return $attr;
+    }
 }

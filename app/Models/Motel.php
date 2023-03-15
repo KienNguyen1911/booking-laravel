@@ -25,11 +25,31 @@ class Motel extends Model
 
     public function images()
     {
-        return $this->hasMany(Image::class);
+        return $this->hasMany(Image::class, 'motel_id', 'id');
     }
 
     public function attrs()
     {
-        return $this->belongsToMany(Attr::class);
+        return $this->belongsToMany(Attr::class, 'motel_attrs', 'motel_id', 'attr_id');
+    }
+
+    public function province()
+    {
+        return $this->belongsTo(Province::class);
+    }
+
+    public function district()
+    {
+        return $this->belongsTo(District::class);
+    }
+
+    public function ward()
+    {
+        return $this->belongsTo(Ward::class);
+    }
+
+    public function getAttrAttribute($value)
+    {
+        return explode(',', $value);
     }
 }

@@ -14,6 +14,7 @@ class AttrController extends Controller
     public function __construct(AttrService $attrService)
     {
         $this->attrService = $attrService;
+        $this->middleware('auth');
     }
 
     /**

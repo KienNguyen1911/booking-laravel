@@ -40,7 +40,7 @@ Route::prefix('admin')->group(function () {
 
     Route::resource('attributes', AttrController::class);
     Route::resource('motels', MotelController::class);
-});
+})->middleware('auth');
 
 Route::view('/services', 'client.pages.services')->name('services');
 Route::view('/about', 'client.pages.about')->name('about');

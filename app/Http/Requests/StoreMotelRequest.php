@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Validator;
 
 class StoreMotelRequest extends FormRequest
 {
@@ -25,16 +26,26 @@ class StoreMotelRequest extends FormRequest
     {
         return [
             //
-            // 'name' => 'required| min: 5 | max: 255 | string',
-            // 'address' => 'required | min: 5 | max: 255 | string',
-            // 'province_id' => 'required | numeric',
-            // 'district_id' => 'required | numeric',
-            // 'ward_id' => 'required | numeric',
-            // 'price' => 'required | numeric',
-            // 'acreage' => 'required | numeric',
-            // 'description' => 'required ',
-            // 'attr' => 'required | array',
-            // 'attr.*' => 'required | numeric',
+            'name' => 'required | min:3 | max:50 | string',
+            'price' => 'required | numeric | min:100000',
+            'status' => 'required',
+            'acreage' => 'required | numeric | min:10 | max:200',
+            'province_id' => 'required ',
+            'district_id' => 'required ',
+            'ward_id' => 'required ',
+            'address' => 'required | min:10 | max:100 | string',
+            'description' => 'required | min:10 | max:100 | string',
+            'attribute' => 'required',
         ];
+    }
+
+    public function withValidator(Validator $validator)
+    {
+        $validator->after(function (Validator $validator) {
+            if ($validator->errors()->isNotEmpty()) {
+                // dd($validator->errors()->all());
+                $validator->errors()->add('field', 'Something is wrong with this field!');
+            }
+        });
     }
 }

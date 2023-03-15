@@ -26,7 +26,7 @@
                                                 <label for="example-text-input" class="form-control-label">Name
                                                     Motel</label>
                                                 <x-text-input class="form-control" type="text" name="name"
-                                                    :value="old('name')" id="example-text-input"
+                                                    :value="$motel->name" id="example-text-input"
                                                     placeholder="ex: Hotel Tinh Yeu" />
                                                 <x-input-error :messages="$errors->get('name')" class="mt-2" />
 

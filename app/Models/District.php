@@ -25,4 +25,10 @@ class District extends Model
     {
         return $this->hasMany(Ward::class);
     }
+
+    public function motels()
+    {
+        return $this->hasMany(Motel::class);
+    }
+
 }

@@ -11,8 +11,6 @@ class Attr extends Model
 
     public function motels()
     {
-        return $this->belongsToMany(Motel::class);
+        return $this->belongsToMany(Motel::class, 'motel_attrs', 'attr_id', 'motel_id');
     }
-
-    
 }

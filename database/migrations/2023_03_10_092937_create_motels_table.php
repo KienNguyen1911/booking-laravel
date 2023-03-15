@@ -25,7 +25,6 @@ return new class extends Migration
             $table->foreignId('district_id')->constrained('districts');
             $table->foreignId('ward_id')->constrained('wards');
             $table->string('address');
-            $table->string('attr');
             $table->timestamps();
         });
     }

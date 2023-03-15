@@ -20,8 +20,9 @@
 
         @yield('motels.index')
         @yield('motels.create')
+        @yield('motels.show')
 
-        
+
     </main>
     @include('admin.layout.ui-configurator')
 

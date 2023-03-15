@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Motel;
+use App\Models\Image;
 use App\Http\Requests\StoreMotelRequest;
 use App\Http\Requests\UpdateMotelRequest;
 use Illuminate\Contracts\View\View;
@@ -11,6 +12,7 @@ use App\Services\MotelsService;
 use App\Services\AddressService;
 use App\Services\ImageService;
 use Illuminate\Http\Request;
+
 
 class MotelController extends Controller
 {
@@ -25,6 +27,7 @@ class MotelController extends Controller
         $this->attrService = $attrService;
         $this->addressService = $addressService;
         $this->imageService = $imageService;
+        $this->middleware('auth');
     }
 
     /**
@@ -37,7 +40,7 @@ class MotelController extends Controller
         //
         $motels = $this->motelsService->getAll();
         return view('admin.pages.motels.motelList', [
-            'motels' => $motels
+            'motels' => $motels,
         ]);
     }
 
@@ -58,16 +61,16 @@ class MotelController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created resouprce in storage.
      *
      * @param  \App\Http\Requests\StoreMotelRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreMotelRequest $request)
     {
-        //
         // dd($request->all());
         $motel = $this->motelsService->create($request);
+        $this->motelsService->attach($request, $motel->id);
         $this->imageService->upload($request, $motel->id);
         return redirect()->route('motels.index');
     }
@@ -78,9 +81,13 @@ class MotelController extends Controller
      * @param  \App\Models\Motel  $motel
      * @return \Illuminate\Http\Response
      */
-    public function show(Motel $motel)
+    public function show($id): View
     {
         //
+        $motel = $this->motelsService->getById($id);
+        return view('admin.pages.motels.motel_details', [
+            'motel' => $motel,
+        ]);
     }
 
     /**
