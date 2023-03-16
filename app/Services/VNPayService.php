@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -123,8 +124,9 @@ class VNPayService
             'total' => $inputData['vnp_Amount'] / 100,
         ];
         $order = $this->orderService->create($data);
-        
+        $owner = User::findOrFail($order->booking->motel->owner_id);
         $this->mailService->mailOrder(Auth::user()->email, $order, 'Order Success!!!');
+        $this->mailService->mailOrderOwner($owner->email, $order, 'New Order!!!');
 
         $secureHash = hash_hmac('sha512', $hashData, $vnp_HashSecret);
         return $order;

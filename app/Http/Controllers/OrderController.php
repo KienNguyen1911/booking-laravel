@@ -8,6 +8,7 @@ use App\Services\OrderService;
 use App\Services\VNPayService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use PhpOffice\PhpSpreadsheet\Calculation\TextData\Replace;
 
 class OrderController extends Controller
@@ -82,15 +83,22 @@ class OrderController extends Controller
 
     public function postVNPay(Request $request)
     {
-        // convert string to integer
         $this->vnpayService->postVNPay($request);
     }
 
     public function vnpayReturn(Request $request)
     {
         // convert string to integer
-        $order = $this->vnpayService->returnVnpay($request);
-        return view('vnpay.vnpay_return', ['order' => $order]);
+        try {
+            //code...
+            DB::beginTransaction();
+            $order = $this->vnpayService->returnVnpay($request);
+            DB::commit();
+            return view('vnpay.vnpay_return', ['order' => $order]);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            throw $th;
+        }
     }
 
     // ================== ADMIN ==================

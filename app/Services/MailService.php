@@ -20,7 +20,16 @@ class MailService
     {
         $order = Order::find($order->id);
 
-        Mail::send('mail.new_order_user', compact('name'), function ($message) use ($to, $subject) {
+        Mail::send('mail.new_order_user', compact('order'), function ($message) use ($to, $subject) {
+            $message->to($to)->subject($subject);
+        });
+    }
+
+    public function mailOrderOwner($to, $order, $subject)
+    {
+        $order = Order::find($order->id);
+
+        Mail::send('mail.new_order_user', compact('order'), function ($message) use ($to, $subject) {
             $message->to($to)->subject($subject);
         });
     }
