@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AttrController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\MotelController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserController;
@@ -43,6 +44,9 @@ Route::middleware('auth.admin')->group(function () {
 
         Route::resource('attributes', AttrController::class);
         Route::resource('motels', MotelController::class);
+        Route::resource('images', ImageController::class);
+        Route::post('/images/upload', [ImageController::class, 'addImageMotel'])->name('images.upload');
+
         Route::get('/search', [MotelController::class, 'search'])->name('motels.search');
         Route::get('/orders', [OrderController::class, 'getAllOrder'])->name('orders.all');
         Route::get('/orders/user/{id}', [OrderController::class, 'getOrderByOwner'])->name('orders.user');

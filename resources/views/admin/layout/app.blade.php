@@ -25,6 +25,8 @@
 
         @yield('order_owner')
 
+        @yield('images')
+
 
     </main>
     @include('admin.layout.ui-configurator')

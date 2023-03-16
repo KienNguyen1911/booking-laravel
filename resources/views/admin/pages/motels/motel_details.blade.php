@@ -76,6 +76,7 @@
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger">Delete this motel</button>
                                     </form>
+                                    <a class="btn btn-info" href="{{ route('images.show', [$motel->id]) }}">Images</a>
                                 </div>
                             </div>
                         </div>

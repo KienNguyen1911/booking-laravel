@@ -6,35 +6,19 @@ use App\Models\Image;
 use App\Http\Requests\StoreImageRequest;
 use App\Http\Requests\UpdateImageRequest;
 use App\Services\ImageService;
+use App\Services\MotelsService;
+use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class ImageController extends Controller
 {
     protected $imageService;
+    protected $motelsService;
 
-    public function __construct(ImageService $imageService)
+    public function __construct(ImageService $imageService, MotelsService $motelsService)
     {
         $this->imageService = $imageService;
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-
+        $this->motelsService = $motelsService;
     }
 
     /**
@@ -43,10 +27,11 @@ class ImageController extends Controller
      * @param  \App\Http\Requests\StoreImageRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreImageRequest $request, $id)
+    public function store(Request $request)
     {
         //
-        $this->imageService->upload($request, $id);
+        // $this->imageService->upload($request, $id);
+        return redirect()->route('images.show');
     }
 
     /**
@@ -55,32 +40,13 @@ class ImageController extends Controller
      * @param  \App\Models\Image  $image
      * @return \Illuminate\Http\Response
      */
-    public function show(Image $image)
+    public function show($id): View
     {
         //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Image  $image
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Image $image)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateImageRequest  $request
-     * @param  \App\Models\Image  $image
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateImageRequest $request, Image $image)
-    {
-        //
+        $images = $this->imageService->showImageByMotel($id);
+        return view('admin.pages.images', [
+            'images' => $images
+        ]);
     }
 
     /**
@@ -89,8 +55,17 @@ class ImageController extends Controller
      * @param  \App\Models\Image  $image
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Image $image)
+    public function destroy($id)
     {
         //
+        $this->imageService->delete($id);
+        return redirect()->back();
+    }
+
+    public function addImageMotel(Request $request)
+    {
+        // dd($request->all());
+        $image = $this->imageService->createImageMotel($request);
+        return redirect()->back();
     }
 }
