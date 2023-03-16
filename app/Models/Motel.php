@@ -79,21 +79,26 @@ class Motel extends Model
 
     public function province()
     {
-        return $this->belongsTo(Province::class);
+        return $this->belongsTo(Province::class, 'province_id', 'id');
     }
 
     public function district()
     {
-        return $this->belongsTo(District::class);
+        return $this->belongsTo(District::class, 'district_id', 'id');
     }
 
     public function ward()
     {
-        return $this->belongsTo(Ward::class);
+        return $this->belongsTo(Ward::class, 'ward_id', 'id');
     }
 
     public function getAttrAttribute($value)
     {
         return explode(',', $value);
+    }
+
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class, 'motel_id', 'id');
     }
 }

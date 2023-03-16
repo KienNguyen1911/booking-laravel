@@ -4,6 +4,7 @@ use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AttrController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\MotelController;
 use App\Http\Controllers\UserController;
 use Illuminate\Routing\RouteRegistrar;
@@ -51,6 +52,9 @@ Route::view('/contact', 'client.pages.contact')->name('contact');
 Route::view('/elements', 'client.pages.elements')->name('elements');
 Route::get('/motels', [MotelController::class, 'motelClient'])->name('motels');
 Route::get('/motel/{id}', [MotelController::class, 'showMotelClient'])->name('motels.show.client');
+Route::post('/search', [MotelController::class, 'searchMotelClient'])->name('motels.search.client');
+
+Route::resource('booking', BookingController::class);
 
 Route::get('/province', [AddressController::class, 'getProvince'])->name('province');
 Route::post('/district', [AddressController::class, 'getDistrict'])->name('district');

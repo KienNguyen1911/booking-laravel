@@ -18,17 +18,21 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Source+Serif+Pro:wght@400;700&display=swap"
         rel="stylesheet">
 
-    <link rel="stylesheet" href="client/css/bootstrap.min.css">
-    <link rel="stylesheet" href="client/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="client/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="client/css/jquery.fancybox.min.css">
-    <link rel="stylesheet" href="client/fonts/icomoon/style.css">
-    <link rel="stylesheet" href="client/fonts/flaticon/font/flaticon.css">
-    <link rel="stylesheet" href="client/css/daterangepicker.css">
-    <link rel="stylesheet" href="client/css/aos.css">
-    <link rel="stylesheet" href="client/css/style.css">
-
-    <title>Tour </title>
+    <link rel="stylesheet" href="{{ asset('/client/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/client/css/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/client/css/owl.theme.default.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/client/css/jquery.fancybox.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/client/fonts/icomoon/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('/client/fonts/flaticon/font/flaticon.css') }}">
+    <link rel="stylesheet" href="{{ asset('/client/css/daterangepicker.css') }}">
+    <link rel="stylesheet" href="{{ asset('/client/css/aos.css') }}">
+    <link rel="stylesheet" href="{{ asset('/client/css/style.css') }}">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    {{-- <title>Tour </title> --}}
+    @yield('title')
 
 </head>
 
@@ -41,6 +45,8 @@
     @yield('services')
     @yield('elements')
     @yield('motels')
+    @yield('motel_details')
+    @yield('booking')
 
     @include('client.layout.footer')
 </body>

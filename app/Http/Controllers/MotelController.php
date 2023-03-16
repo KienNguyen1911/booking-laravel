@@ -27,7 +27,6 @@ class MotelController extends Controller
         $this->attrService = $attrService;
         $this->addressService = $addressService;
         $this->imageService = $imageService;
-        $this->middleware('auth');
     }
 
     /**
@@ -160,6 +159,8 @@ class MotelController extends Controller
         ]);
     }
 
+
+    // ================== Client ==================
     public function motelClient()
     {
         try {
@@ -182,6 +183,18 @@ class MotelController extends Controller
         $motel = $this->motelsService->getById($id);
         return view('client.pages.motel_detail', [
             'motel' => $motel,
+        ]);
+    }
+
+    public function searchMotelClient(Request $request)
+    {
+        $motels = $this->motelsService->search($request);
+        $attrs = $this->attrService->getAll();
+        $provinces = $this->addressService->getProvince();
+        return view('client.pages.motels', [
+            'motels' => $motels,
+            'attrs' => $attrs,
+            'provinces' => $provinces
         ]);
     }
 }
