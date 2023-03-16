@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('motel_id')->constrained('motels')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->dateTime('start');
-            $table->dateTime('end');
+            $table->date('start');
+            $table->date('end');
             $table->timestamps();
         });
     }

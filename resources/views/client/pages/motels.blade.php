@@ -38,6 +38,7 @@
                                         aria-label="Close">X
                                     </button>
                                 </div>
+                                {{-- MODAL --}}
                                 <div class="modal-body">
                                     <form action="{{ route('motels.search.client') }}" method="post">
                                         @csrf

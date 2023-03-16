@@ -67,9 +67,13 @@ class OrderController extends Controller
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function show(Order $order)
+    public function show($id)
     {
         //
+        $order = $this->orderService->getById($id);
+        return view('client.pages.order_detail', [
+            'order' => $order,
+        ]);
     }
 
     public function postVNPay(Request $request)

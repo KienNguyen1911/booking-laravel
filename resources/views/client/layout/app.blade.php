@@ -51,6 +51,10 @@
     @yield('vnpay_pay')
     @yield('return_vnpay')
 
+    @yield('order_list')
+    @yield('order_detail')
+
+    
     @include('client.layout.footer')
 </body>
 
