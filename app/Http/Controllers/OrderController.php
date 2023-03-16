@@ -53,10 +53,9 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request): View
     {
         //
-        // dd($request->all());
         $order = $this->vnpayService->postVNPay($request);
         return view('vnpay.vnpay_pay', compact('order'));
     }
@@ -67,7 +66,7 @@ class OrderController extends Controller
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id): View
     {
         //
         $order = $this->orderService->getById($id);
@@ -87,5 +86,25 @@ class OrderController extends Controller
         // convert string to integer
         $order = $this->vnpayService->returnVnpay($request);
         return view('vnpay.vnpay_return', ['order' => $order]);
+    }
+
+    // ================== ADMIN ==================
+    public function getAllOrder()
+    {
+        $orders = $this->orderService->getAll();
+        $totalByMonth = $this->orderService->getTotalByMonth();
+        // dd($totalByMonth);
+        return view('admin.pages.billing', [
+            'orders' => $orders,
+            'totalByMonth' => $totalByMonth,
+        ]);
+    }
+
+    public function getOrderByOwner()
+    {
+        $orders = $this->orderService->getOrderByOwner();
+        return view('admin.pages.order_owner', [
+            'orders' => $orders,
+        ]);
     }
 }

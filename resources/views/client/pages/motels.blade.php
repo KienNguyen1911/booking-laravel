@@ -1,12 +1,17 @@
 @extends('client.layout.app')
 
+@section('title')
+    <title>Motels</title>
+@endsection
+
+
 @section('motels')
     <div class="hero hero-inner">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6 mx-auto text-center">
                     <div class="intro-wrap">
-                        <h1 class="mb-0">Elements</h1>
+                        <h1 class="mb-0">Motels</h1>
                         <p class="text-white">Far far away, behind the word mountains, far from the countries Vokalia
                             and Consonantia, there live the blind texts. </p>
                     </div>
@@ -40,7 +45,7 @@
                                 </div>
                                 {{-- MODAL --}}
                                 <div class="modal-body">
-                                    <form action="{{ route('motels.search.client') }}" method="post">
+                                    <form action="{{ route('motels.search.client') }}" method="get">
                                         @csrf
                                         <div class="form-group">
                                             <div class="input-group">
@@ -151,6 +156,12 @@
 
                     </div>
                 @endforeach
+
+            </div>
+            <div class="row mt-5">
+                <div class="col-12 d-flex justify-content-center gap-5">
+                    {{ $motels->links() }}
+                </div>
             </div>
         </div>
     </div>

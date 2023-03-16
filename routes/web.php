@@ -43,7 +43,9 @@ Route::middleware('auth.admin')->group(function () {
 
         Route::resource('attributes', AttrController::class);
         Route::resource('motels', MotelController::class);
-        Route::post('/search', [MotelController::class, 'search'])->name('motels.search');
+        Route::get('/search', [MotelController::class, 'search'])->name('motels.search');
+        Route::get('/orders', [OrderController::class, 'getAllOrder'])->name('orders.all');
+        Route::get('/orders/user/{id}', [OrderController::class, 'getOrderByOwner'])->name('orders.user');
     });
 });
 
@@ -53,7 +55,7 @@ Route::view('/contact', 'client.pages.contact')->name('contact');
 Route::view('/elements', 'client.pages.elements')->name('elements');
 Route::get('/motels', [MotelController::class, 'motelClient'])->name('motels');
 Route::get('/motel/{id}', [MotelController::class, 'showMotelClient'])->name('motels.show.client');
-Route::post('/search', [MotelController::class, 'searchMotelClient'])->name('motels.search.client');
+Route::get('/search', [MotelController::class, 'searchMotelClient'])->name('motels.search.client');
 
 Route::resource('booking', BookingController::class);
 Route::resource('order', OrderController::class);

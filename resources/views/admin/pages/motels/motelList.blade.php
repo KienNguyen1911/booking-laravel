@@ -32,7 +32,7 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <form action="{{ route('motels.search') }}" method="post">
+                                            <form action="{{ route('motels.search') }}" method="get">
                                                 @csrf
                                                 {{-- include: price, provinces, districts, wards, checkbox attribute, name --}}
                                                 <div class="form-group">
@@ -179,7 +179,13 @@
                                         </div>
                                     </div>
                                 @endforeach
-
+                            </div>
+                            <div class="row mt-5">
+                                <div class="col-12">
+                                    <div class="d-flex justify-content-center">
+                                        {{ $motels->links() }}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

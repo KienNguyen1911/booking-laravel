@@ -32,7 +32,7 @@
                                                     data-mdb-img="{{ asset('motel_images/' . $image->name) }}"
                                                     alt="Gallery image 1"
                                                     class="img active w-100 border-radius-lg shadow-sm"
-                                                    style="height:100%" />
+                                                    style="height:100%; aspect-ratio: 16/11" />
                                             </div>
                                         @endforeach
                                     </div>

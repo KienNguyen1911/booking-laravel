@@ -18,4 +18,16 @@ class Order extends Model
     {
         return $this->belongsTo(Booking::class, 'booking_id', 'id');
     }
+
+    // motel through booking 
+    public function motel()
+    {
+        return $this->hasOneThrough(Motel::class, Booking::class, 'id', 'id', 'booking_id', 'motel_id');
+    }
+
+    // user through booking
+    public function user()
+    {
+        return $this->hasOneThrough(User::class, Booking::class, 'id', 'id', 'booking_id', 'user_id');
+    }
 }

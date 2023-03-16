@@ -67,7 +67,12 @@ class MotelsService
 
     public function getAll()
     {
-        return Motel::where('owner_id', Auth::user()->id)->paginate(5);
+        return Motel::paginate(4);
+    }
+
+    public function getOwnerMotels()
+    {
+        return Motel::where('owner_id', Auth::user()->id)->paginate(4);
     }
 
     public function getById($id)
@@ -97,36 +102,33 @@ class MotelsService
         $motel->attrs()->sync($request->attribute);
     }
 
-    public function search($request)
+    public function search()
     {
         $query = Motel::query();
-        if ($request->has('name')) {
-            $query->where('name', 'like', '%' . $request->name . '%');
+        if (!empty(request()->name)) {
+            $query->where('name', 'like', '%' . request()->name . '%');
         }
-        if (!empty($request->price)) {
-            $query->orderBy('price', $request->price);
-        } else if ($request->price == 'desc') {
-            $query->orderBy('price', 'desc');
+        if (!empty(request()->price)) {
+            $query->orderBy('price', request()->price);
         }
-        if (!empty($request->acreage)) {
-            $query->where('acreage', $request->acreage);
+        if (!empty(request()->acreage)) {
+            $query->where('acreage', request()->acreage);
         }
-        if (!empty($request->province_id)) {
-            $query->where('province_id', $request->province_id);
+        if (!empty(request()->province_id)) {
+            $query->where('province_id', request()->province_id);
         }
-        if (!empty($request->district_id)) {
-            $query->where('district_id', $request->district_id);
+        if (!empty(request()->district_id)) {
+            $query->where('district_id', request()->district_id);
         }
-        if (!empty($request->ward_id)) {
-            $query->where('ward_id', $request->ward_id);
+        if (!empty(request()->ward_id)) {
+            $query->where('ward_id', request()->ward_id);
         }
-        if ($request->has('attribute')) {
-            $query->whereHas('attrs', function ($q) use ($request) {
-                $q->whereIn('attrs.id', $request->attribute);
-            });
-        }
-
+        // if (!empty(request()->attribute)) {
+        //     $query->whereHas('attrs', function ($q) use (request()) {
+        //         $q->whereIn('attrs.id', request()->attribute);
+        //     });
+        // }
         // dd($query->toSql());
-        return $query->get();
+        return $query->paginate(4);
     }
 }

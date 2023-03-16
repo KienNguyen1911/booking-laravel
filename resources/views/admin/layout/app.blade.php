@@ -23,6 +23,8 @@
         @yield('motels.show')
         @yield('motels.edit')
 
+        @yield('order_owner')
+
 
     </main>
     @include('admin.layout.ui-configurator')

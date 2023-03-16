@@ -17,7 +17,7 @@ class AuthAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::check() &&  auth()->user()->role == 'admin') {
+        if (Auth::check() &&  auth()->user()->role == 'admin' || auth()->user()->role == 'owner') {
             return $next($request);
         }
         return redirect()->route('logout');

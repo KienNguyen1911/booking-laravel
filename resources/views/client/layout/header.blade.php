@@ -46,7 +46,7 @@
                                 <li><a href="{{ route('dashboard') }}" target="_blank">Go to Dashboard</a></li>
                             @endif
                             @if (Auth::user()->role == 'owner' || Auth::user()->role == 'admin')
-                                <li><a href="#">Post Your Home</a></li>
+                                <li><a href="{{ route('dashboard') }}">Post Your Home</a></li>
                             @endif
                             <li><a href="/logout">Sign Out</a></li>
                         </ul>

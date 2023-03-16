@@ -53,8 +53,8 @@
 
     @yield('order_list')
     @yield('order_detail')
+    @yield('order_owner')
 
-    
     @include('client.layout.footer')
 </body>
 

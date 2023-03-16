@@ -46,7 +46,7 @@ class MotelController extends Controller
     {
         //
         try {
-            $motels = $this->motelsService->getAll();
+            $motels = $this->motelsService->getOwnerMotels();
             $provinces = $this->addressService->getProvince();
             $attrs = $this->attrService->getAll();
             return view('admin.pages.motels.motelList', [
@@ -153,10 +153,10 @@ class MotelController extends Controller
         return redirect()->route('motels.index');
     }
 
-    public function search(Request $request)
+    public function search()
     {
         // dd($request->all());
-        $motels = $this->motelsService->search($request);
+        $motels = $this->motelsService->search();
         // dd($motels);
         $attrs = $this->attrService->getAll();
         $provinces = $this->addressService->getProvince();
@@ -196,9 +196,10 @@ class MotelController extends Controller
         ]);
     }
 
-    public function searchMotelClient(Request $request)
+    public function searchMotelClient()
     {
-        $motels = $this->motelsService->search($request);
+        // dd(request()->all());
+        $motels = $this->motelsService->search();
         $attrs = $this->attrService->getAll();
         $provinces = $this->addressService->getProvince();
         return view('client.pages.motels', [
