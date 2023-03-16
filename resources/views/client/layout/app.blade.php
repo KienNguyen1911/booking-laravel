@@ -31,7 +31,6 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-    {{-- <title>Tour </title> --}}
     @yield('title')
 
 </head>
@@ -44,9 +43,13 @@
     @yield('contact')
     @yield('services')
     @yield('elements')
+
     @yield('motels')
     @yield('motel_details')
     @yield('booking')
+
+    @yield('vnpay_pay')
+    @yield('return_vnpay')
 
     @include('client.layout.footer')
 </body>

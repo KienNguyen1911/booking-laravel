@@ -46,8 +46,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 mb-5 mb-lg-0">
-                    <form class="contact-form" action="" data-aos="fade-up" data-aos-delay="200" method="post">
-
+                    <form class="contact-form" action="{{ route('order.create') }}" data-aos="fade-up" data-aos-delay="200"
+                        method="get">
+                        @csrf
+                        <input type="hidden" name="booking_id" value="{{ $booking->id }}">
                         <div class="form-group">
                             <label class="text-black" for="email">Name Home</label>
                             <input type="text" class="form-control" id="email" value="{{ $booking->motel->name }}"
@@ -96,7 +98,7 @@
 
                         <div class="d-flex">
                             <!-- <button type="submit" class="btn btn-primary w-100">Order</button> -->
-                            <button name="redirect" type="submit" class="btn btn-primary w-100">VNPay</button>
+                            <button type="submit" class="btn btn-primary w-100">VNPay</button>
                         </div>
                     </form>
                 </div>

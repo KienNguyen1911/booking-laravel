@@ -6,6 +6,7 @@ use App\Http\Controllers\AttrController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\MotelController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserController;
 use Illuminate\Routing\RouteRegistrar;
 use Illuminate\Support\Facades\Route;
@@ -55,6 +56,9 @@ Route::get('/motel/{id}', [MotelController::class, 'showMotelClient'])->name('mo
 Route::post('/search', [MotelController::class, 'searchMotelClient'])->name('motels.search.client');
 
 Route::resource('booking', BookingController::class);
+Route::resource('order', OrderController::class);
+Route::post('/postVNPay', [OrderController::class, 'postVNPay'])->name('postVNPay');
+Route::get('/vnpayReturn', [OrderController::class, 'vnpayReturn'])->name('vnpayReturn');
 
 Route::get('/province', [AddressController::class, 'getProvince'])->name('province');
 Route::post('/district', [AddressController::class, 'getDistrict'])->name('district');

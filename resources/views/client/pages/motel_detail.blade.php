@@ -97,6 +97,7 @@
             </div>
         </div>
     </div>
+    {{-- @dd($orders) --}}
     <script>
         $(function() {
             $(".daterange").daterangepicker({
@@ -105,7 +106,20 @@
                     cancelLabel: "Clear",
                 },
                 minDate: moment().subtract(0, "days"),
-
+                isInvalidDate: function(date) {
+                    // create a variable to hold the date
+                    var paymentDate = <?php echo json_encode($orders); ?>;
+                    // for loop to check if the date is in the array
+                    for (var i = 0; i < paymentDate.length; i++) {
+                        // if the date is in the array return true
+                        for (var m = moment(paymentDate[i].start); m.isBefore(paymentDate[i].end); m
+                            .add(1, "days")) {
+                            if (date.format('YYYY-M-D') == m.format('YYYY-M-D')) {
+                                return true;
+                            }
+                        }
+                    }
+                }
             });
 
             $(".daterange").on("apply.daterangepicker", function(ev, picker) {

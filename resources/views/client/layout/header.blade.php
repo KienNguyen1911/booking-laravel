@@ -20,23 +20,9 @@
             <a href="/" class="logo m-0">Tour <span class="text-primary">.</span></a>
 
             <ul class="js-clone-nav d-none d-lg-inline-block text-left site-menu float-right">
-                <li @class(['active' => request()->routeIs('index')])><a href="/">Home</a></li>
-                {{-- <li class="has-children">
-                    <a href="#">Dropdown</a>
-                    <ul class="dropdown">
-                        <li><a href="/elements">Elements</a></li>
-                        <li><a href="#">Menu One</a></li>
-                        <li class="has-children">
-                            <a href="#">Menu Two</a>
-                            <ul class="dropdown">
-                                <li><a href="#">Sub Menu One</a></li>
-                                <li><a href="#">Sub Menu Two</a></li>
-                                <li><a href="#">Sub Menu Three</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#">Menu Three</a></li>
-                    </ul>
-                </li> --}}
+                <li @class(['active' => request()->routeIs('index')])>
+                    <a href="/">Home</a>
+                </li>
                 <li @class(['active' => request()->routeIs('motels')])>
                     <x-nav-link :href="route('motels')">Motels</x-nav-link>
                 </li>
@@ -55,7 +41,7 @@
                         <ul class="dropdown">
                             <li><a href="/elements">Elements</a></li>
                             <li><a href="/elements">Wish List</a></li>
-                            <li><a href="/elements">Your Orders</a></li>
+                            <li><a href="{{ route('order.index') }}">Your Orders</a></li>
                             @if (Auth::user()->role == 'admin')
                                 <li><a href="{{ route('dashboard') }}" target="_blank">Go to Dashboard</a></li>
                             @endif

@@ -101,4 +101,9 @@ class Motel extends Model
     {
         return $this->hasMany(Booking::class, 'motel_id', 'id');
     }
+
+    public function orders()
+    {
+        return $this->hasManyThrough(Order::class, Booking::class, 'motel_id', 'booking_id', 'id', 'id');
+    }
 }

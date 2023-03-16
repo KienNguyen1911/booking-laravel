@@ -11,6 +11,7 @@ use App\Services\AttrService;
 use App\Services\MotelsService;
 use App\Services\AddressService;
 use App\Services\ImageService;
+use App\Services\OrderService;
 use Illuminate\Http\Request;
 
 
@@ -20,13 +21,20 @@ class MotelController extends Controller
     protected $attrService;
     protected $addressService;
     protected $imageService;
+    protected $orderService;
 
-    public function __construct(MotelsService $motelsService, AttrService $attrService, AddressService $addressService, ImageService $imageService)
-    {
+    public function __construct(
+        MotelsService $motelsService,
+        AttrService $attrService,
+        AddressService $addressService,
+        ImageService $imageService,
+        OrderService $orderService
+    ) {
         $this->motelsService = $motelsService;
         $this->attrService = $attrService;
         $this->addressService = $addressService;
         $this->imageService = $imageService;
+        $this->orderService = $orderService;
     }
 
     /**
@@ -180,9 +188,11 @@ class MotelController extends Controller
     public function showMotelClient($id): View
     {
         //
+        $orders = $this->orderService->getOrderByMotel($id);
         $motel = $this->motelsService->getById($id);
         return view('client.pages.motel_detail', [
             'motel' => $motel,
+            'orders' => $orders
         ]);
     }
 
