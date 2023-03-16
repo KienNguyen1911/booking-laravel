@@ -3,14 +3,16 @@
 namespace App\Services;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class VNPayService
 {
     protected $orderService;
-
-    public function __construct(OrderService $orderService)
+    protected $mailService;
+    public function __construct(OrderService $orderService, MailService $mailService)
     {
         $this->orderService = $orderService;
+        $this->mailService = $mailService;
     }
 
     public function  postVNPay(Request $request)
@@ -121,6 +123,8 @@ class VNPayService
             'total' => $inputData['vnp_Amount'] / 100,
         ];
         $order = $this->orderService->create($data);
+        
+        $this->mailService->mailOrder(Auth::user()->email, $order, 'Order Success!!!');
 
         $secureHash = hash_hmac('sha512', $hashData, $vnp_HashSecret);
         return $order;

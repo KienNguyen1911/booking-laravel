@@ -92,7 +92,7 @@ return [
 
     'from' => [
         'address' => 'ngkien1911@gmail.com',
-        'name' => 'BooKien-1911',
+        'name' => 'BooKing Laravel',
     ],
 
     /*
