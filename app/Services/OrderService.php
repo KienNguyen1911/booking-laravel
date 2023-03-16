@@ -58,21 +58,34 @@ class OrderService
     public function getTotalByMonth()
     {
         // select count(total) as totalmoney, month(created_at) as month from orders group by month(created_at)
-        $orders = Order::select(DB::raw('sum(total) as totalmoney, month(created_at) as month'))
+        $money = Order::select(DB::raw('sum(total) as totalmoney, month(created_at) as month'))
             ->groupBy(DB::raw('month(created_at)'))
             ->get();
 
-        return $orders;
+        return $money;
     }
 
-    public function getOrderByOwner()
+    public function getOrderByOwner($id)
     {
         $orders = Order::with('booking', 'motel', 'user')
             ->join('bookings', 'bookings.id', '=', 'orders.booking_id')
             ->join('motels', 'motels.id', '=', 'bookings.motel_id')
-            ->where('motels.owner_id', Auth::user()->id)
+            ->where('motels.owner_id', $id)
             ->orderBy('orders.created_at', 'desc')
             ->paginate(10);
         return $orders;
+    }
+
+    public function getTotalByMonthOwner($id)
+    {
+        // get total money by month of owner
+        $money = Order::select(DB::raw('sum(total) as totalmoney, month(orders.created_at) as month'))
+            ->join('bookings', 'bookings.id', '=', 'orders.booking_id')
+            ->join('motels', 'motels.id', '=', 'bookings.motel_id')
+            ->where('motels.owner_id', $id)
+            ->groupBy(DB::raw('month(created_at)'))
+            ->get();
+
+        return $money;
     }
 }

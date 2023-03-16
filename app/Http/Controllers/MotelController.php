@@ -13,7 +13,7 @@ use App\Services\AddressService;
 use App\Services\ImageService;
 use App\Services\OrderService;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 
 class MotelController extends Controller
 {
@@ -100,9 +100,14 @@ class MotelController extends Controller
     {
         //
         $motel = $this->motelsService->getById($id);
-        return view('admin.pages.motels.motel_details', [
-            'motel' => $motel,
-        ]);
+        if (Auth::user()->id == $motel->owner_id) {
+            $motel = $this->motelsService->getById($id);
+            return view('admin.pages.motels.motel_details', [
+                'motel' => $motel,
+            ]);
+        } else {
+            abort(404);
+        }
     }
 
     /**

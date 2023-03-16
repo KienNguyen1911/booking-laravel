@@ -77,7 +77,7 @@ class MotelsService
 
     public function getById($id)
     {
-        return Motel::find($id);
+        return Motel::findOrFail($id);
     }
 
     public function attach($request, $id)

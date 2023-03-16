@@ -70,9 +70,14 @@ class OrderController extends Controller
     {
         //
         $order = $this->orderService->getById($id);
-        return view('client.pages.order_detail', [
-            'order' => $order,
-        ]);
+        if (Auth()->user()->id == $order->booking->user->id) {
+            $order = $this->orderService->getById($id);
+            return view('client.pages.order_detail', [
+                'order' => $order,
+            ]);
+        } else {
+            abort(404);
+        }
     }
 
     public function postVNPay(Request $request)
@@ -92,19 +97,25 @@ class OrderController extends Controller
     public function getAllOrder()
     {
         $orders = $this->orderService->getAll();
-        $totalByMonth = $this->orderService->getTotalByMonth();
-        // dd($totalByMonth);
+        $money = $this->orderService->getTotalByMonth();
         return view('admin.pages.billing', [
             'orders' => $orders,
-            'totalByMonth' => $totalByMonth,
+            'money' => $money,
         ]);
     }
 
-    public function getOrderByOwner()
+    public function getOrderByOwner($id)
     {
-        $orders = $this->orderService->getOrderByOwner();
-        return view('admin.pages.order_owner', [
-            'orders' => $orders,
-        ]);
+        if (Auth()->user()->id == $id) {
+
+            $orders = $this->orderService->getOrderByOwner($id);
+            $money = $this->orderService->getTotalByMonthOwner($id);
+            return view('admin.pages.order_owner', [
+                'orders' => $orders,
+                'money' => $money,
+            ]);
+        } else {
+            abort(404);
+        }
     }
 }
