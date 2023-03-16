@@ -1,7 +1,6 @@
 @extends('auth.form')
 
 @section('login')
-    {{-- {{ dd($error) }} --}}
     <main class="main-content  mt-0">
         <section>
             <div class="page-header min-vh-75">
@@ -42,7 +41,7 @@
                                             </button>
                                             @if (Session::has('errors'))
                                                 <div class="alert alert-danger mt-2 text-white">
-                                                    It Ngao Da Thoi
+                                                    Your email or password is incorrect
                                                 </div>
                                             @endif
                                         </div>
