@@ -40,7 +40,6 @@ class MotelController extends Controller
         //
         try {
             $motels = $this->motelsService->getAll();
-            
             $provinces = $this->addressService->getProvince();
             $attrs = $this->attrService->getAll();
             return view('admin.pages.motels.motelList', [
@@ -158,6 +157,31 @@ class MotelController extends Controller
             'motels' => $motels,
             'attrs' => $attrs,
             'provinces' => $provinces
+        ]);
+    }
+
+    public function motelClient()
+    {
+        try {
+            $motels = $this->motelsService->getAll();
+            $provinces = $this->addressService->getProvince();
+            $attrs = $this->attrService->getAll();
+            return view('client.pages.motels', [
+                'motels' => $motels,
+                'attrs' => $attrs,
+                'provinces' => $provinces
+            ]);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public function showMotelClient($id): View
+    {
+        //
+        $motel = $this->motelsService->getById($id);
+        return view('client.pages.motel_detail', [
+            'motel' => $motel,
         ]);
     }
 }

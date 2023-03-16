@@ -40,6 +40,7 @@
     @yield('contact')
     @yield('services')
     @yield('elements')
+    @yield('motels')
 
     @include('client.layout.footer')
 </body>

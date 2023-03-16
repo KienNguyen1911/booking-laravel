@@ -37,6 +37,9 @@
                         <li><a href="#">Menu Three</a></li>
                     </ul>
                 </li> --}}
+                <li @class(['active' => request()->routeIs('motels')])>
+                    <x-nav-link :href="route('motels')">Motels</x-nav-link>
+                </li>
                 <li @class(['active' => request()->routeIs('services')])>
                     <x-nav-link :href="route('services')">Services</x-nav-link>
                 </li>

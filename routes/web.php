@@ -49,6 +49,8 @@ Route::view('/services', 'client.pages.services')->name('services');
 Route::view('/about', 'client.pages.about')->name('about');
 Route::view('/contact', 'client.pages.contact')->name('contact');
 Route::view('/elements', 'client.pages.elements')->name('elements');
+Route::get('/motels', [MotelController::class, 'motelClient'])->name('motels');
+Route::get('/motel/{id}', [MotelController::class, 'showMotelClient'])->name('motels.show.client');
 
 Route::get('/province', [AddressController::class, 'getProvince'])->name('province');
 Route::post('/district', [AddressController::class, 'getDistrict'])->name('district');
