@@ -58,7 +58,11 @@
                                             </td>
                                         </tr>
                                     @endforeach
-
+                                    <tr>
+                                        <td colspan="3">
+                                            {{ $attrs->links() }}
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>

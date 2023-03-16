@@ -32,7 +32,7 @@ class AttrService
 
     public function getAll()
     {
-        return Attr::all();
+        return Attr::paginate(5);
     }
 
     public function getById($id)
