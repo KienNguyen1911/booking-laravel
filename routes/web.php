@@ -26,13 +26,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('client.pages.index');
 })->name('index');
-
-Route::view('/login', 'auth.login')->name('login');
-Route::post('/login', [AuthController::class, 'login'])->name('login.store');
-Route::view('/register', 'auth.register')->name('register');
-Route::post('/register', [AuthController::class, 'register'])->name('register.store');
+Route::middleware('checkLogin')->group(function () {
+    Route::view('/login', 'auth.login')->name('login');
+    Route::post('/login', [AuthController::class, 'login'])->name('login.store');
+    Route::view('/register', 'auth.register')->name('register');
+    Route::post('/register', [AuthController::class, 'register'])->name('register.store');
+});
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-
 
 
 Route::middleware('auth.admin')->group(function () {

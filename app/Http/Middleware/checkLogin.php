@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class AuthAdmin
+class checkLogin
 {
     /**
      * Handle an incoming request.
@@ -18,10 +18,8 @@ class AuthAdmin
     public function handle(Request $request, Closure $next)
     {
         if (Auth::check()) {
-            if (Auth::user()->role == 'admin' || Auth::user()->role == 'owner') {
-                return $next($request);
-            }
+            return redirect()->route('index');
         }
-        return redirect()->route('login');
+        return $next($request);
     }
 }
