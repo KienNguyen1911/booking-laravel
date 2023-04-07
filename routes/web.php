@@ -43,6 +43,7 @@ Route::middleware('auth.admin')->group(function () {
         Route::get('/profile', [AdminController::class, 'profile'])->name('profile');
 
         Route::resource('attributes', AttrController::class);
+        Route::get('/attributes-table', [AttrController::class, 'getData'])->name('attributes.getData');
         Route::resource('motels', MotelController::class);
         Route::resource('images', ImageController::class);
         Route::post('/images/upload', [ImageController::class, 'addImageMotel'])->name('images.upload');

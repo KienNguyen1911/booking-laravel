@@ -20,7 +20,7 @@ class AttrService
         $attr = Attr::find($id);
         $attr->name = $request->name;
         $attr->save();
-        return $attr;
+        // return $attr;
     }
 
     public function delete($id)
@@ -32,7 +32,7 @@ class AttrService
 
     public function getAll()
     {
-        return Attr::paginate(5);
+        return Attr::orderBy("created_at", "desc")->paginate(5);
     }
 
     public function getById($id)

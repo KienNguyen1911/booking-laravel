@@ -6,6 +6,9 @@ use App\Models\Attr;
 use App\Http\Requests\StoreAttrRequest;
 use App\Http\Requests\UpdateAttrRequest;
 use App\Services\AttrService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Log;
+use Illuminate\View\View;
 
 class AttrController extends Controller
 {
@@ -22,16 +25,29 @@ class AttrController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): View
     {
         //
         $attrs = $this->attrService->getAll();
         // dd($attrs);
+        if (request()->ajax()) {
+            return view('admin.pages.attributes.load-attr-data', [
+                'attrs' => $attrs
+            ]);
+        }
         return view('admin.pages.attributes.index', [
             'attrs' => $attrs
         ]);
     }
 
+    public function getData(): JsonResponse
+    {
+        $attrs = $this->attrService->getAll();
+        // dd($attrs);
+        return response()->json([
+            'attrs' => $attrs
+        ]);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -48,13 +64,16 @@ class AttrController extends Controller
      * @param  \App\Http\Requests\StoreAttrRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreAttrRequest $request)
+    public function store(StoreAttrRequest $request): JsonResponse
     {
         //
         $this->attrService->create($request);
-        return view('admin.pages.attributes.index', [
-            'attrs' => $this->attrService->getAll()
-        ])->with('success', 'Attribute created successfully');
+        // return view('admin.pages.attributes.index', [
+        //     'attrs' => $this->attrService->getAll()
+        // ])->with('success', 'Attribute created successfully');
+        return response()->json([
+            'message' => 'Attribute created successfully'
+        ]);
     }
 
     /**
@@ -88,11 +107,15 @@ class AttrController extends Controller
      * @param  \App\Models\Attr  $attr
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateAttrRequest $request, $id)
+    public function update(UpdateAttrRequest $request, $id): JsonResponse
     {
         //
+        Log::alert($request->name);
         $this->attrService->update($request, $id);
-        return redirect()->route('attributes.index')->with('success', 'Attribute updated successfully');
+        // return redirect()->route('attributes.index')->with('success', 'Attribute updated successfully');
+        return response()->json([
+            'message' => 'Attribute updated successfully'
+        ]);
     }
 
     /**
@@ -101,10 +124,13 @@ class AttrController extends Controller
      * @param  \App\Models\Attr  $attr
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id): JsonResponse
     {
         //
         $this->attrService->delete($id);
-        return redirect()->route('attributes.index')->with('success', 'Attribute deleted successfully');
+        // return redirect()->route('attributes.index')->with('success', 'Attribute deleted successfully');
+        return response()->json([
+            'message' => 'Attribute deleted successfully'
+        ]);
     }
 }
