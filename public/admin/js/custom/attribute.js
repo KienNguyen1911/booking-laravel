@@ -140,6 +140,7 @@ function paginatePage() {
             success: function (data) {
                 console.log(data);
                 $(".table").load(location.href + " .table");
+                
             },
             error: function (data) {
                 console.log(data);

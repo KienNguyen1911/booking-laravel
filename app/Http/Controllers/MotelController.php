@@ -14,6 +14,7 @@ use App\Services\ImageService;
 use App\Services\OrderService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class MotelController extends Controller
 {
@@ -48,8 +49,12 @@ class MotelController extends Controller
         try {
             $motels = $this->motelsService->getOwnerMotels();
             $provinces = $this->addressService->getProvince();
-            $attrs = $this->attrService->getAll();
-            return view('admin.pages.motels.motelList', [
+            $attrs = $this->attrService->index();
+
+            if (request()->ajax()) {
+                return view("admin.pages.motels.motel-load", compact('motels', 'attrs', 'provinces'));
+            }
+            return view('admin.pages.motels.motel-list', [
                 'motels' => $motels,
                 'attrs' => $attrs,
                 'provinces' => $provinces
@@ -68,7 +73,7 @@ class MotelController extends Controller
     {
         //
         $provinces = $this->addressService->getProvince();
-        $attrs = $this->attrService->getAll();
+        $attrs = $this->attrService->index();
         return view('admin.pages.motels.create', [
             'attrs' => $attrs,
             'provinces' => $provinces
@@ -84,6 +89,7 @@ class MotelController extends Controller
     public function store(StoreMotelRequest $request)
     {
         // dd($request->all());
+        Log::info($request->all());
         $motel = $this->motelsService->create($request);
         $this->motelsService->attach($request, $motel->id);
         $this->imageService->upload($request, $motel->id);
@@ -165,7 +171,7 @@ class MotelController extends Controller
         // dd($motels);
         $attrs = $this->attrService->getAll();
         $provinces = $this->addressService->getProvince();
-        return view('admin.pages.motels.motelList', [
+        return view('admin.pages.motels.motel-list', [
             'motels' => $motels,
             'attrs' => $attrs,
             'provinces' => $provinces

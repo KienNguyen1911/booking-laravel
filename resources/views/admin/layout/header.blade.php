@@ -22,3 +22,6 @@
 <link href="{{ asset('admin/css/nucleo-svg.css') }}" rel="stylesheet" />
 <!-- CSS Files -->
 <link id="pagestyle" href="{{ asset('admin/css/soft-ui-dashboard.css?v=1.0.7') }}" rel="stylesheet" />
+
+{{-- Sweet alert --}}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>

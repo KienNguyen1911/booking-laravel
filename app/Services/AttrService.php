@@ -47,4 +47,9 @@ class AttrService
         dd($attr);
         return $attr;
     }
+
+    public function index()
+    {
+        return Attr::all();
+    }
 }

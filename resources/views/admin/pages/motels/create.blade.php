@@ -74,7 +74,8 @@
                                         <div class="col-4">
                                             <div class="form-group">
                                                 <label for="exampleFormControlSelect1">Province</label>
-                                                <select class="form-control" id="province" name="province_id">
+                                                <select class="form-control" id="province" name="province_id"
+                                                    data-url="{{ route('district') }}">
                                                     <option value="" selected disabled>Choose province</option>
                                                     @foreach ($provinces as $province)
                                                         <option value="{{ $province->id }}">
@@ -87,7 +88,8 @@
                                         <div class="col-4">
                                             <div class="form-group">
                                                 <label for="exampleFormControlSelect1">District</label>
-                                                <select class="form-control" id="district" name="district_id">
+                                                <select class="form-control" id="district" name="district_id"
+                                                    data-url="{{ route('ward') }}">
                                                     <option selected>Choose District</option>
                                                 </select>
                                             </div>
@@ -225,50 +227,5 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-    <script>
-        $(document).ready(function() {
-            $('#province').on('change', function() {
-                var province_id = this.value;
-                console.log(province_id);
-                $("#district").html('');
-                $.ajax({
-                    type: "POST",
-                    url: "{{ route('district') }}",
-                    data: {
-                        province_id: province_id,
-                        _token: '{{ csrf_token() }}'
-                    },
-                    success: function(result) {
-                        console.log(result);
-                        $('#district').html('<option value="">Select District</option>');
-                        $.each(result, function(key, value) {
-                            $("#district").append('<option value="' + value.id + '">' +
-                                value.name + '</option>');
-                        });
-                        $('#ward').html(
-                            '<option value="">Select District First</option>');
-                    }
-                });
-            });
-            $('#district').on('change', function() {
-                var district_id = this.value;
-                $("#ward").html('');
-                $.ajax({
-                    type: "POST",
-                    url: "{{ route('ward') }}",
-                    data: {
-                        district_id: district_id,
-                        _token: '{{ csrf_token() }}'
-                    },
-                    success: function(result) {
-                        $('#ward').html('<option value="">Select Ward</option>');
-                        $.each(result, function(key, value) {
-                            $("#ward").append('<option value="' + value.id +
-                                '">' + value.name + '</option>');
-                        });
-                    }
-                });
-            });
-        });
-    </script>
+    <script src="{{ asset('admin/js/custom/address.js') }}"></script>
 @endsection
