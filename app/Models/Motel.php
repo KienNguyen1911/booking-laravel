@@ -21,6 +21,32 @@ class Motel extends Model
     ];
 
     // Local Scope
+
+    public function scopeSearch($query)
+    {
+        $query = Motel::query();
+        if (!empty(request()->name)) {
+            $query->where('name', 'like', '%' . request()->name . '%');
+        }
+        if (!empty(request()->price)) {
+            $query->orderBy('price', request()->price);
+        }
+        if (!empty(request()->acreage)) {
+            $query->where('acreage', request()->acreage);
+        }
+        if (!empty(request()->province_id)) {
+            $query->where('province_id', request()->province_id);
+        }
+        if (!empty(request()->district_id)) {
+            $query->where('district_id', request()->district_id);
+        }
+        if (!empty(request()->ward_id)) {
+            $query->where('ward_id', request()->ward_id);
+        }
+
+        return $query;
+    }
+
     public function scopeName($query, $name)
     {
         return $query->where('name', 'like', '%' . $name . '%');

@@ -72,7 +72,7 @@ class MotelsService
 
     public function getOwnerMotels()
     {
-        return Motel::where('owner_id', Auth::user()->id)->orderBy("created_at", "desc")->paginate(3);
+        return Motel::where('owner_id', Auth::user()->id)->orderBy("created_at", "desc")->search()->paginate(3);
     }
 
     public function getById($id)
@@ -104,6 +104,7 @@ class MotelsService
 
     public function search()
     {
+
         $query = Motel::query();
         if (!empty(request()->name)) {
             $query->where('name', 'like', '%' . request()->name . '%');
@@ -129,6 +130,33 @@ class MotelsService
         //     });
         // }
         // dd($query->toSql());
+        return $query->paginate(4);
+    }
+
+    public function searchName()
+    {
+        $query = Motel::query();
+        if (!empty(request()->name)) {
+            $query->where('name', 'like', '%' . request()->name . '%');
+        }
+        return $query->paginate(4);
+    }
+
+    public function searchPrice()
+    {
+        $query = Motel::query();
+        if (!empty(request()->price)) {
+            $query->orderBy('price', request()->price);
+        }
+        return $query->paginate(4);
+    }
+
+    public function searchProvince()
+    {
+        $query = Motel::query();
+        if (!empty(request()->province_id)) {
+            $query->where('province_id', request()->province_id);
+        }
         return $query->paginate(4);
     }
 }

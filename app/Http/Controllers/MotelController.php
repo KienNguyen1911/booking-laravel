@@ -12,6 +12,7 @@ use App\Services\MotelsService;
 use App\Services\AddressService;
 use App\Services\ImageService;
 use App\Services\OrderService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -50,6 +51,8 @@ class MotelController extends Controller
             $motels = $this->motelsService->getOwnerMotels();
             $provinces = $this->addressService->getProvince();
             $attrs = $this->attrService->index();
+            // $motel = $this->motelsService->getById($motel->id);
+
 
             if (request()->ajax()) {
                 return view("admin.pages.motels.motel-load", compact('motels', 'attrs', 'provinces'));
@@ -127,8 +130,12 @@ class MotelController extends Controller
         //
         $motel = $this->motelsService->getById($motel->id);
         $provinces = $this->addressService->getProvince();
-        $attrs = $this->attrService->getAll();
-        return view('admin.pages.motels.edit', [
+        $attrs = $this->attrService->index();
+
+        if (request()->ajax()) {
+            return view("admin.pages.motels.edit-modal", compact('motel', 'attrs', 'provinces'));
+        }
+        return view('admin.pages.motels.edit-modal', [
             'motel' => $motel,
             'provinces' => $provinces,
             'attrs' => $attrs,
@@ -142,13 +149,16 @@ class MotelController extends Controller
      * @param  \App\Models\Motel  $motel
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateMotelRequest $request, $id)
+    public function update(UpdateMotelRequest $request, $id): JsonResponse
     {
         //
         $this->motelsService->update($request, $id);
         $this->motelsService->sync($request, $id);
         $this->imageService->upload($request, $id);
-        return redirect()->route('motels.show', $id);
+        // return redirect()->route('motels.show', $id);
+        return response()->json([
+            'message' => 'Update Motel Successfully'
+        ]);
     }
 
     /**
@@ -167,10 +177,17 @@ class MotelController extends Controller
     public function search()
     {
         // dd($request->all());
+        dd(request()->all());
+        Log::alert(request()->all());
         $motels = $this->motelsService->search();
         // dd($motels);
-        $attrs = $this->attrService->getAll();
+        $attrs = $this->attrService->index();
         $provinces = $this->addressService->getProvince();
+
+        if (request()->ajax()) {
+            return view("admin.pages.motels.motel-load", compact('motels', 'attrs', 'provinces'));
+        }
+
         return view('admin.pages.motels.motel-list', [
             'motels' => $motels,
             'attrs' => $attrs,
