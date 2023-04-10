@@ -72,7 +72,7 @@ class MotelsService
 
     public function getOwnerMotels()
     {
-        return Motel::where('owner_id', Auth::user()->id)->paginate(4);
+        return Motel::where('owner_id', Auth::user()->id)->orderBy("created_at", "desc")->paginate(3);
     }
 
     public function getById($id)
