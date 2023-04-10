@@ -1,4 +1,4 @@
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+{{-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -11,7 +11,6 @@
             <div class="modal-body">
                 <form action="{{ route('motels.search') }}" method="post">
                     @csrf
-                    {{-- include: price, provinces, districts, wards, checkbox attribute, name --}}
                     <div class="form-group">
                         <div class="input-group">
                             <span class="input-group-text" id="basic-addon1">@</span>
@@ -80,4 +79,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}

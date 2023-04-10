@@ -40,6 +40,10 @@
                         <a href="{{ route('motels.show', [$motel->id]) }}" type="button"
                             class="btn btn-outline-primary btn-sm mb-0">View
                             Project</a>
+                        <button data-url="{{ route('motels.edit', [$motel->id]) }}" type="button"
+                            data-id="{{ $motel->id }}" data-bs-target="#updateModal"
+                            class="btn btn-outline-secondary btn-sm mb-0 btn-edit">Edit
+                            Motel</button>
                         <div class="avatar-group mt-2">
                             <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip"
                                 data-bs-placement="bottom" title="Elena Morison">
@@ -66,7 +70,7 @@
     <div class="row mt-5">
         <div class="col-12">
             <div class="d-flex justify-content-center">
-                {{ $motels->links() }}
+                {{ $motels->appends(request()->all())->links() }}
             </div>
         </div>
     </div>

@@ -45,10 +45,11 @@ Route::middleware('auth.admin')->group(function () {
         Route::resource('attributes', AttrController::class);
         Route::get('/attributes-table', [AttrController::class, 'getData'])->name('attributes.getData');
         Route::resource('motels', MotelController::class);
+        Route::get('motels/search', [MotelController::class, 'search'])->name('motels.search');
+
         Route::resource('images', ImageController::class);
         Route::post('/images/upload', [ImageController::class, 'addImageMotel'])->name('images.upload');
 
-        Route::get('/search', [MotelController::class, 'search'])->name('motels.search');
         Route::get('/orders', [OrderController::class, 'getAllOrder'])->name('orders.all');
         Route::get('/orders/user/{id}', [OrderController::class, 'getOrderByOwner'])->name('orders.user');
     });
